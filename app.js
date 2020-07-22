@@ -1,12 +1,13 @@
-const express = require("express");
+const express = require('express');
 const path = require('path');
+const exphbs = require('express-handlebars')
 const morgan = require('morgan')
-const exphbs = require('express-handlebars');
+const mongoose = require('mongoose');
+const port = process.env.PORT || 3000;
 
 const app = express();
 
-// Use URL uncoder which using in POST requests
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //use static folder
@@ -32,8 +33,19 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-const port = process.env.PORT || 3000;
+//Эта функция выполняет конект мангуса,а также подключение сервака и выдает ошибку в случае неудачи
+async function start() {
+  try {
+    await mongoose.connect('mongodb+srv://Ribozavr:PSZ9md1234@cluster0.at1bq.mongodb.net/Smuzi', {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+    app.listen(port, function () {
+      console.log(`Listening port ${port}!`);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
 
-app.listen(port, function () {
-  console.log(`Listening port ${port}!`);
-});
+start()
