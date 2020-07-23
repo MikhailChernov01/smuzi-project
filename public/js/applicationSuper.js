@@ -1,7 +1,15 @@
-(async () => {
-  const responce = await fetch('super/chart');
+const buttonMounth = document.querySelector('#btn-mounth')
+const buttonWeek = document.querySelector('#btn-week')
+const buttonThreDays = document.querySelector('#btn-three-day')
+
+
+async function generateDashBoard(data) {
+
+
+
+
+  const responce = await fetch(`super/${data}`);
   const result = await responce.json();
-  console.log(result);
   let regData = result.sortData.map(
     (el) => el.match(/(\d{2})\s(\d{4})/g).join('')
     // \s((\d{2}):){2}(\d{2})
@@ -37,4 +45,16 @@
       },
     },
   });
-})();
+}
+generateDashBoard('week')
+
+buttonMounth.addEventListener('click', async () => {
+  generateDashBoard('mounth')
+})
+buttonWeek.addEventListener('click', async () => {
+  generateDashBoard('week')
+})
+
+buttonThreDays.addEventListener('click', async () => {
+  generateDashBoard('threeDays')
+})

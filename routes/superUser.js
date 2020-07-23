@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   res.render('superUser');
 });
 
-router.get('/chart', async (req, res) => {
+async function getDashBoard (srok) {
   let goodsData = await Goods.find();
   goodsData.map((el) => console.log(el.dateCreate));
   let sortData = goodsData
@@ -26,7 +26,7 @@ router.get('/chart', async (req, res) => {
 
   // sortData = sortData.map((el) => el.toString());
   sortData = new Set(sortData);
-  sortData = [...sortData].slice(-7);
+  sortData = [...sortData].slice(srok);
   let arrSum = [];
   for (let i = 0; i < sortData.length; i++) {
     let tempArr = [];
@@ -43,7 +43,37 @@ router.get('/chart', async (req, res) => {
     }
     arrSum.push(tempArr.length);
   }
+  return [arrSum, sortData]
+}
 
+router.get('/week', async (req, res) => {
+  
+  const result = await getDashBoard(-7)
+  let arrSum = result[0]
+  let sortData = result[1]
+  res.send({
+    arrSum,
+    sortData,
+  });
+});
+
+router.get('/mounth', async (req, res) => {
+  
+  const result = await getDashBoard(-30)
+  let arrSum = result[0]
+  let sortData = result[1]
+  res.send({
+    arrSum,
+    sortData,
+  });
+});
+
+
+router.get('/threeDays', async (req, res) => {
+  
+  const result = await getDashBoard(-3)
+  let arrSum = result[0]
+  let sortData = result[1]
   res.send({
     arrSum,
     sortData,
