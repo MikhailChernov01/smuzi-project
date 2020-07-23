@@ -1,4 +1,5 @@
-1;
+// Это товары, которые будут куплены юзером. Они будут пушиться в массив покупок юзера. 
+const mongoose = require('mongoose');
 const { Schema, model } = require('mongoose');
 
 const schemaGoods = new Schema({
@@ -7,4 +8,6 @@ const schemaGoods = new Schema({
   dateCreate: { type: Date, default: Date.now },
 });
 
-module.exports = model('Goods', schemaUsers);
+const Good = model('Goods', schemaGoods);
+module.exports = Good;
+
