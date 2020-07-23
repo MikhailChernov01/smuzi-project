@@ -1,18 +1,16 @@
 <h1>ЗАПОЛНИ ФОРМУ</h1>
-<form>
+<form action="/register/create" method="POST">
   <div class="form-group">
     
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Имя">
+    <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Имя">
     
   </div>
-   <div class="form-group">    
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Номер телефона">    
+   
+  <div class="form-group">    
+    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">    
   </div>
   <div class="form-group">    
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">    
-  </div>
-  <div class="form-group">    
-    <input type="password" class="form-control" id="inputPassword4" placeholder="Придумай пароль">
+    <input name="password" type="password" class="form-control" id="inputPassword4" placeholder="Придумай пароль">
   </div>
   
   <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
