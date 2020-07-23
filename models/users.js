@@ -1,29 +1,34 @@
+const mongoose = require('mongoose');
 const { Schema, model } = require('mongoose');
 
 const schemaUsers = new Schema({
   username: {
     type: String,
     unique: true,
-    required: [
-      () => {
-        this.username.length > 1 && this.username.length <= 15;
-      },
-      'failed username ',
-    ],
   },
   email: {
     type: String,
     unique: true,
-    required: [
-      () => {
-        /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/gi.test(this.email);
-      },
-      'failed email ',
-    ],
+    required: true,
   },
+  superUser: {
+    type: Boolean,
+    default: false,
+    },
   password: { type: String, required: true },
-  purchases: Array,
-  counts: this.purchases.length,
+  purchases: {
+    type: Array,
+    default: [],
+  },
+  
 });
+const User = model('Users', schemaUsers);
+module.exports = User;
 
-module.exports = model('Users', schemaUsers);
+
+
+
+
+
+
+
