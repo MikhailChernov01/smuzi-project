@@ -72,11 +72,11 @@ app.use(methodOverride((req, res) => {
 
 
 app.use('/', indexRouter);
-app.use('/user', usersRouter);
+app.use('/users', usersRouter);
 app.use('/goods', goodsRouter);
 app.use('/super', superRouter);
 
-//app.use(error);
+app.use(error);
 
 //Эта функция выполняет конект мангуса,а также подключение сервака и выдает ошибку в случае неудачи
 async function start() {
