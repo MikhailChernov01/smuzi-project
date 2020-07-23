@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const Goods = require('../models/goods')
-const sum = [25, 27, 21, 12, 45]
-const data = ['01/01', '01/02', '01/03', '01/04', '01/05']
+
 // const error = require('../middleware/error');
 // const {checkSession, checkVerification, cookiesCleaner} = require('..error/middleware/check')
 router.get('/',  (req, res) =>{
   res.render('superUser');
 });
+
 
 router.get('/chart',  async (req, res) => {
       const arrData = await Goods.find().limit(7).map(el => el.dateCreate).replace(
@@ -20,3 +20,4 @@ console.log(arrData)
       });
     
       module.exports = router;
+
