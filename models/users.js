@@ -11,6 +11,10 @@ const schemaUsers = new Schema({
     unique: true,
     required: true,
   },
+  superUser: {
+    type: Boolean,
+    default: false,
+    },
   password: { type: String, required: true },
   purchases: {
     type: Array,
