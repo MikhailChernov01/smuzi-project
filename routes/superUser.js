@@ -5,11 +5,12 @@ const data = ['01/01', '01/02', '01/03', '01/04', '01/05']
 // const {checkSession, checkVerification, cookiesCleaner} = require('../middleware/check')
 
 
-  res.render('superUser');
-});
+//   res.render('superUser');
+// });
 
 router.get('/chart', function async (req, res) {
   
      res.send ({sum, data});
   });
+  
 module.exports = router;
