@@ -5,6 +5,7 @@ const { Schema, model } = require('mongoose');
 const schemaGoods = new Schema({
   title: String,
   keywords: String,
+  cost: Number,
   dateCreate: { type: Date, default: Date.now },
 });
 

@@ -9,6 +9,7 @@ const { Schema, model } = require('mongoose');
 const schemaGoodsExist = new Schema({
   title: String,
   keywords: String,
+  cost: Number,
   dateCreate: { type: Date, default: Date.now },
 });
 
