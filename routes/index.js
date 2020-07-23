@@ -35,7 +35,20 @@ router.post('/register', async (req, res) => {
   }
 })
 
-
+router.post('/users/home', async (req, res, next) =>{
+  console.log(req.body);
+  try{
+    const { username, email, password } = req.body;
+    const user = await new User.create({
+      username,
+      email,
+      password
+    })
+    res.render('/users/home');
+  }catch{
+    next(error);
+  }
+})
 
 
 
