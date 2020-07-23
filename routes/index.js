@@ -31,8 +31,25 @@ router.post('/register', async (req, res) => {
   if (goodExist !== null) {
     res.render('register')
   } else {
+    //res.redirect('/promocode')
     res.render('promocode')
   }
+})
+router.post('/register/create', async(req,res)=>{
+  console.log(12);
+  try{
+    const { username, email, password } = req.body;
+    const user = new User({
+          username,
+          email,
+          password: await bcrypt.hash(password, saltRounds),
+        });
+        await user.save();
+        req.session.user = user;
+  }catch{
+    next(error);
+  }
+  res.redirect('/users/home')
 })
 
 
