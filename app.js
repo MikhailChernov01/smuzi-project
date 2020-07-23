@@ -3,9 +3,21 @@ const path = require('path');
 const exphbs = require('express-handlebars')
 const morgan = require('morgan')
 const mongoose = require('mongoose');
+const cookieParser= require('cookie-parser');
+const session = require("express-session");
+const FileStore = require("session-file-store")(session);
+const methodOverride = require('method-override');
+const error = require('./middleware/error');
+const {checkSession, checkVerification, cookiesCleaner} = require('./middleware/check')
 const port = process.env.PORT || 3000;
 
 const app = express();
+
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const superRouter = require('./routes/superUser');
+const goodsRouter = require('./routes/goods');
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -13,8 +25,23 @@ app.use(express.json());
 //use static folder
 app.use(express.static(path.join(__dirname,'public')));
 
-//use logger
+//use logger, cookieParser
 app.use(morgan('dev'));
+app.use(cookieParser());
+
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(
+  session({
+    store: new FileStore(),
+    key: "user_sid",
+    secret: "anything here",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 3000000
+    }
+  })
+);
 
 //use view, hbs connection
 const hbs = exphbs.create({
@@ -24,14 +51,32 @@ const hbs = exphbs.create({
   partialsDir: path.join(__dirname, 'public', 'templates'),
 });
 app.engine('hbs', hbs.engine);
-app.set('view engine', 'hbs')
+app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'))
-// use partials
 
 
-app.get('/', function (req, res) {
-  res.render('index');
-});
+// Allows you to use PUT, DELETE with forms.
+app.use(methodOverride((req, res) => {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    const method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
+}));
+
+
+//app.use(checkSession);
+//app.use(checkVerification);
+//app.use(cookiesCleaner);
+
+
+app.use('/', indexRouter);
+app.use('/user', usersRouter);
+app.use('/goods', goodsRouter);
+app.use('/super', superRouter);
+
+//app.use(error);
 
 //Эта функция выполняет конект мангуса,а также подключение сервака и выдает ошибку в случае неудачи
 async function start() {
