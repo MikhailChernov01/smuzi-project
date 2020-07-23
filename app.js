@@ -72,7 +72,7 @@ app.use(methodOverride((req, res) => {
 
 
 app.use('/', indexRouter);
-app.use('/user', usersRouter);
+app.use('/users', usersRouter);
 app.use('/goods', goodsRouter);
 app.use('/super', superRouter);
 
