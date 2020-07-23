@@ -1,16 +1,19 @@
 (async () => {
   const responce = await fetch('super/chart');
   const result = await responce.json();
-  console.log(result.sum)
-  console.log()
+  console.log(result);
+  let regData = result.sortData.map(
+    (el) => el.match(/(\d{2})\s(\d{4})/g).join('')
+    // \s((\d{2}):){2}(\d{2})
+  );
   let ctx = document.getElementById('myChart');
   let myChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: result.data,
+      labels: regData,
       datasets: [
         {
-          data: result.sum,
+          data: result.arrSum,
           lineTension: 0,
           backgroundColor: 'transparent',
           borderColor: '#007bff',
