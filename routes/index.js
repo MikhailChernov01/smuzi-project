@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const error = require('../middleware/error');
+const checkError = require('../middleware/error');
 const User = require('../models/users')
 const Good = require('../models/goods')
 const GoodExist = require('../models/goodsExist')
@@ -35,18 +35,22 @@ router.post('/register', async (req, res) => {
   }
 })
 
-router.post('/users/home', async (req, res, next) =>{
+router.post('/users/home', async (req, res) => {
   console.log(req.body);
-  try{
-    const { username, email, password } = req.body;
-    const user = await new User.create({
+  try {
+    const {username:
+      username,
+      email,
+      password
+    } = req.body;
+    const user = await User.create({
       username,
       email,
       password
     })
     res.render('/users/home');
-  }catch{
-    next(error);
+  } catch {
+    next(checkError);
   }
 })
 

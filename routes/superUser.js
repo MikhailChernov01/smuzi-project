@@ -9,11 +9,12 @@ router.get('/', function async (req, res) {
 });
 
 router.get('/chart', function async (req, res) {
-      const arrData = await Goods.find().limit(7).map(el => el.dateCreate);
-       console.log(arrData)
-        // replace(
-        //   /([0-9]{4})(-)([0-9]{2})(-)([0-9]{2}) ([0-9]{2}:[0-9]{2}:00)/g,
-        //   '$5/$3/$1'));
+  const arrData = 
+   Goods.find().limit(7).map(el => el.dateCreate);
+   console.log(arrData)
+    // replace(
+    //   /([0-9]{4})(-)([0-9]{2})(-)([0-9]{2}) ([0-9]{2}:[0-9]{2}:00)/g,
+    //   '$5/$3/$1'));
 
         res.send({
           sum,
