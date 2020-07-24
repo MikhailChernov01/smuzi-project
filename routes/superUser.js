@@ -1,15 +1,35 @@
 const router = require('express').Router();
 const Goods = require('../models/goods');
-
+const Users = require('../models/users');
 // const error = require('../middleware/error');
 // const {checkSession, checkVerification, cookiesCleaner} = require('..error/middleware/check')
 router.get('/', (req, res) => {
+  // console.log(allUsers)
   res.render('superUser');
 });
 
-async function getDashBoard (srok) {
+router.get('/customers', async (req, res) => {
+  const users = await Users.find();
+  const arr = [];
+
+  users.forEach((el) => {
+    let obj = {};
+    obj.email = el.email;
+    obj.username = el.username;
+    obj.purchases = el.purchases.length;
+    arr.push(obj);
+  });
+  console.log(arr);
+  res.render('customers', { arr });
+});
+
+router.get('/customers', (req, res) => {
+  res.send({ name: 'aaa' });
+});
+
+async function getDashBoard(srok) {
   let goodsData = await Goods.find();
-  goodsData.map((el) => console.log(el.dateCreate));
+
   let sortData = goodsData
     .map((el) =>
       el.dateCreate
@@ -41,16 +61,17 @@ async function getDashBoard (srok) {
         tempArr.push(goodsData[j]);
       }
     }
+    // let many = [`${tempArr.length * 150}$ / ${tempArr.length}`]
+    // console.log(many)
     arrSum.push(tempArr.length);
   }
-  return [arrSum, sortData]
+  return [arrSum, sortData];
 }
 
 router.get('/week', async (req, res) => {
-  
-  const result = await getDashBoard(-7)
-  let arrSum = result[0]
-  let sortData = result[1]
+  const result = await getDashBoard(-7);
+  let arrSum = result[0];
+  let sortData = result[1];
   res.send({
     arrSum,
     sortData,
@@ -58,22 +79,19 @@ router.get('/week', async (req, res) => {
 });
 
 router.get('/mounth', async (req, res) => {
-  
-  const result = await getDashBoard(-30)
-  let arrSum = result[0]
-  let sortData = result[1]
+  const result = await getDashBoard(-30);
+  let arrSum = result[0];
+  let sortData = result[1];
   res.send({
     arrSum,
     sortData,
   });
 });
 
-
 router.get('/threeDays', async (req, res) => {
-  
-  const result = await getDashBoard(-3)
-  let arrSum = result[0]
-  let sortData = result[1]
+  const result = await getDashBoard(-3);
+  let arrSum = result[0];
+  let sortData = result[1];
   res.send({
     arrSum,
     sortData,
