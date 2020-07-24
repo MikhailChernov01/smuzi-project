@@ -1,6 +1,6 @@
 function checkSession(req,res,next) {
-  if(!!req.session.user) {
-    res.redirect('/users/home');
+  if(!req.session.user) {
+    res.redirect('/login');
   } else {
     next();
   }
@@ -12,6 +12,7 @@ function checkVerification(req, res, next) {
   }
   next()
 }
+
 function cookiesCleaner(req, res, next) {
   if (req.cookies.user_sid && !req.session.user) {
     res.clearCookie("user_sid");
