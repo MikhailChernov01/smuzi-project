@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // const error = require('../middleware/error');
 const { checkSession, checkVerification, cookiesCleaner } = require('../middleware/check');
-const note = require('../models/note');
+const Note = require('../models/note');
 
 router.get('/', (req, res) => {
   res.redirect('/users/home');
@@ -21,7 +21,7 @@ router
 
 router
   .route('/logouts')
-  .get(checkSession, async (req, res, next) => {
+  .get(checkSession,async (req, res, next) => {
     if (req.session.user) {
       try {
         await req.session.destroy();
@@ -38,7 +38,7 @@ router
 router
   .route('/note')
   .get(async (req, res) => {
-    const notes = await note.find({}).limit(15);
+    const notes = await Note.find({}).limit(15);
     console.log(notes);
     res.render('note', { notes });
   });
