@@ -29,15 +29,15 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.get('/super', (req, res) => {
-  res.render('superUser')
-})
+// router.get('/super', (req, res) => {
+//   res.render('superUser')
+// })
 
 // router.get('/users/home', (req, res) => {
 //   res.render('home')
 // })
 
-router.post('/super', async (req, res) => {
+router.post('/users/home', async (req, res) => {
 
   let {
     email,
@@ -48,19 +48,21 @@ router.post('/super', async (req, res) => {
     email: email,
     password: password,
   })
-  if (user == null && (await bcrypt.compare(password, user.password))) {
-    req.session.user = user;
+  console.log(user);
+  if (user == null) {
     res.redirect('/login')
   } else {
     if (user.superUser == true) {
-      res.render('superUser')
+      req.session.user = user;
+      res.redirect('/super')
     } else {
-      res.redirect('/users/home')
+      req.session.user = user;
+      res.redirect('/users')
     }
   }
 });
 
-
+// (await bcrypt.compare(password, user.password))
 router.post('/register', async (req, res) => {
   let {
     promocode

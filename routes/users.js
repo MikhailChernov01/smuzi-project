@@ -21,7 +21,7 @@ router
 
 router
   .route('/logouts')
-  .get(checkSession,async (req, res, next) => {
+  .get(async (req, res, next) => {
     if (req.session.user) {
       try {
         await req.session.destroy();
