@@ -9,9 +9,22 @@ router.get('/', (req, res) => {
 
 router
   .route('/home')
-  .get((req, res) => {
-    res.render('home', { user: 'Ivan' });
-  });
+
+  .get((req,res)=>{
+    const user = req.session.user
+    console.log(user);
+    res.render('home',{user})
+  })
+  // .get((req,res)=>{
+  //   const {user} = req.session
+  //   if (!req.session.user) {
+  //     res.render('home', { user: user.username })
+      
+  //   } else {
+  //     res.redirect('/login');
+  //   }
+  // })
+
 
 router
   .route('/logouts')
