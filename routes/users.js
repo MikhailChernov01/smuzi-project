@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { checkSession, checkVerification, cookiesCleaner } = require('../middleware/check');
 const Note = require('../models/note');
 
+
 router.get('/', (req, res) => {
   res.redirect('/users/home');
 });
@@ -12,16 +13,15 @@ router
   .get((req, res) => {
     const { user } = req.session;
     if (req.session.user) {
-      res.render('home')
+      res.render('home');
     } else {
       // res.redirect('/login');
     }
-  })
-
+  });
 
 router
   .route('/logouts')
-  .get(checkSession,async (req, res, next) => {
+  .get(checkSession, async (req, res, next) => {
     if (req.session.user) {
       try {
         await req.session.destroy();
@@ -42,10 +42,15 @@ router
     console.log(notes);
     res.render('note', { notes });
   });
+
 router
   .route('/note/new')
   .get((req, res) => {
-    res.render('createnote')
-  })
+    res.render('createnote');
+  });
+
+router
+  .route('/bottle')
+  .post
 
 module.exports = router;
