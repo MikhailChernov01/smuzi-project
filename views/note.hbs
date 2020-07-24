@@ -1,1 +1,31 @@
-<h1>note</h1>
+<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+<h1 class="text-center" style="font-family: 'Noto Sans TC', sans-serif; color:blueviolet;">Интересные Статьи</h1>
+
+<div class="conteiner">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <a class="col-md-6 btn btn-primary btn-lg bg-warning" href="/users/note/new" role="button">Написать статью</a>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="row" style="margin-top: 3%;">
+    {{#each notes}}
+    <div class="col-md-3 card" style="width: 18rem;">
+      <div class="card-body">
+        {{#each this}}
+        {{#if title}}
+        <h5 class="card-title" style="font-family: 'Acme', sans-serif;">{{title}}</h5>
+
+        <h5 class="card-author">{{author}}</h5>
+        <p class="card-text">{{text}}</p>
+
+        <a href="/users/note/{{_id}}/edit" `` class="btn btn-primary bg-success">Edit</a>
+        <a href="/users/note/{{_id}}" class="btn btn-primary bg-danger">Delete</a>
+        {{else}}
+        {{!-- <p>nothing</p> --}}
+        {{/if}}
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
