@@ -66,9 +66,9 @@ app.use(methodOverride((req, res) => {
 }));
 
 
-//app.use(checkSession);
 //app.use(checkVerification);
 //app.use(cookiesCleaner);
+// app.use(checkSession);
 
 
 app.use('/', indexRouter);
