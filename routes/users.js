@@ -8,8 +8,10 @@ router.get('/', (req, res)=>{
 
 router
   .route('/home')
-  .get(checkSession,(req,res)=>{
-    res.render('home')
+  .get((req,res)=>{
+    const user = req.session.user
+    console.log(user);
+    res.render('home',{user})
   })
   // .get((req,res)=>{
   //   const {user} = req.session

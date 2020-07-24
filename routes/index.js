@@ -33,9 +33,9 @@ router.get('/super', (req, res) => {
   res.render('superUser')
 })
 
-router.get('/users/home', (req, res) => {
-  res.render('home')
-})
+// router.get('/users/home', (req, res) => {
+//   res.render('home')
+// })
 
 router.post('/super', async (req, res) => {
 
@@ -44,14 +44,15 @@ router.post('/super', async (req, res) => {
     password
   } = req.body
 
-  let login = await User.findOne({
+  let user = await User.findOne({
     email: email,
     password: password,
   })
-  if (login == null) {
+  if (user == null && (await bcrypt.compare(password, user.password))) {
+    req.session.user = user;
     res.redirect('/login')
   } else {
-    if (login.superUser == true) {
+    if (user.superUser == true) {
       res.render('superUser')
     } else {
       res.redirect('/users/home')
@@ -75,7 +76,7 @@ router.post('/register', async (req, res) => {
   }
 })
 router.post('/register/create', async (req, res) => {
-  console.log(12);
+ 
   try {
     const {
       username,
@@ -89,10 +90,11 @@ router.post('/register/create', async (req, res) => {
     });
     await user.save();
     req.session.user = user;
+    console.log(user);
   } catch {
     next(error);
   }
-  res.redirect('/users/home')
+  res.redirect('/users')
 })
 
 
