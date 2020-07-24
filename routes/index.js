@@ -13,7 +13,7 @@ const {
 //const {findOne} = require('../models/users');
 
 
-router.get('/', function (req, res) {
+router.get('/',checkSession, function (req, res) {
   res.render('index');
 });
 
