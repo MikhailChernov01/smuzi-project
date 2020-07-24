@@ -2,9 +2,10 @@
   <a class="navbar-brand" href="https://www.instagram.com/smoothiesmama/">
     <img src="../img/logoOnlycup.png" width="80" height="80" class="d-inline-block align-top" alt="" loading="lazy">
   </a>
-  <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNav">
+  <div class="collapse navbar-collapse d-flex flex-row-reverse " id="navbarNav">
     <ul class="navbar-nav">
       {{#if user  }}
+      <h1 class="col-md-4 text-center" style="font-family: 'Noto Sans TC', sans-serif; color:yellow; text-transform:capitalize">{{user.username}}</h1>
       <li class="nav-item active">
         <a class="nav-link" href="/users/home">Home<span class="sr-only">(current)</span></a>
       </li>
