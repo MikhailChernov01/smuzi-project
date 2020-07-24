@@ -68,6 +68,8 @@ app.use(methodOverride((req, res) => {
 app.use((req, res, next) => {
   if (req.session.user) {
     app.locals.user = req.session.user;
+  } else{
+    app.locals.user =null
   }
   next();
 });
