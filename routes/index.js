@@ -17,9 +17,48 @@ router.get('/', function (req, res) {
   res.render('index');
 });
 
-router.post('/promocode', (req, res) => {
+router.get('/promocode', (req, res) => {
   res.render('promocode')
 })
+
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
+router.get('/login', (req, res) => {
+  res.render('login')
+})
+
+router.get('/super', (req, res) => {
+  res.render('superUser')
+})
+
+router.get('/users/home', (req, res) => {
+  res.render('home')
+})
+
+router.post('/super', async (req, res) => {
+
+  let {
+    email,
+    password
+  } = req.body
+
+  let login = await User.findOne({
+    email: email,
+    password: password,
+  })
+  if (login == null) {
+    res.redirect('/login')
+  } else {
+    if (login.superUser == true) {
+      res.render('superUser')
+    } else {
+      res.redirect('/users/home')
+    }
+  }
+});
+
 
 router.post('/register', async (req, res) => {
   let {
@@ -31,22 +70,26 @@ router.post('/register', async (req, res) => {
   if (goodExist !== null) {
     res.render('register')
   } else {
-    //res.redirect('/promocode')
-    res.render('promocode')
+    res.redirect('/promocode')
+    // res.render('promocode')
   }
 })
-router.post('/register/create', async(req,res)=>{
+router.post('/register/create', async (req, res) => {
   console.log(12);
-  try{
-    const { username, email, password } = req.body;
+  try {
+    const {
+      username,
+      email,
+      password
+    } = req.body;
     const user = new User({
-          username,
-          email,
-          password: await bcrypt.hash(password, saltRounds),
-        });
-        await user.save();
-        req.session.user = user;
-  }catch{
+      username,
+      email,
+      password: await bcrypt.hash(password, saltRounds),
+    });
+    await user.save();
+    req.session.user = user;
+  } catch {
     next(error);
   }
   res.redirect('/users/home')
