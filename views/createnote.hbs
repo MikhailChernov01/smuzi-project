@@ -1,1 +1,14 @@
-<h1>Create note</h1>
+<h1>Напиши статью, {{user.username}}</h1>
+
+<form method="post" action="/note">
+  <label for="title-input" class="block mar-b-1">Заголовок:</label>
+  <input id="title-input" name="title" type="text" value="{{notes.title}}" tabindex="1" class="block w-100 no-outline no-border pad-1 mar-b-2">
+
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">Текст статьи:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">{{notes.text}}</textarea>
+  </div>
+
+  <input type="submit" value="Publish" tabindex="3" class="block button w-100 mar-t-4 mar-b-3 pad-2 round-1 text-c center no-border no-outline">
+</form>
+
