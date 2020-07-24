@@ -54,7 +54,7 @@ router.post('/super', async (req, res) => {
     if (login.superUser == true) {
       res.render('superUser')
     } else {
-      res.render('home')
+      res.redirect('/users/home')
     }
   }
 });
