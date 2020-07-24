@@ -9,8 +9,8 @@ const schemaGoods = new Schema({
   dateCreate: { type: Date, default: Date.now },
 });
 
-// const Good = model('Goods', schemaGoods);
-// module.exports = Good;
+const Good = model('Goods', schemaGoods);
+module.exports = Good;
 
 // async function createGood() {
 //   let date = []
