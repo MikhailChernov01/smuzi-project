@@ -65,6 +65,7 @@ app.use(methodOverride((req, res) => {
 }));
 
 // app.use(cookiesCleaner);
+//Это переключатель с использованием глобальной переменной. Благодаря этому в ЛК появляются нужные поля.
 app.use((req, res, next) => {
   if (req.session.user) {
     app.locals.user = req.session.user;

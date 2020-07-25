@@ -1,0 +1,86 @@
+<body>
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="">Мой кабинет</a>
+    <ul class="navbar-nav px-3">
+
+    </ul>
+  </nav>
+  <table class="table"> 
+      <tr>
+       
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Count purchases</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each arr}}
+      <tr>
+        <td>{{this.username}} </td>
+        <td>{{this.email}}</td>
+        <td>{{this.purchases}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+  {{!-- <table class="table"> --}}
+  {{!-- <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">urchases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+ 
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table> --}}
+
+
+
+  {{!-- {{#each name}}
+    <li class="nav-item text-nowrap">
+      
+          {{this}} 
+        </li>
+        {{/each}}
+
+           {{#each email}}
+    <li class="nav-item text-nowrap">
+      
+          {{this}} 
+        </li>
+        {{/each}}
+
+        
+           {{#each purchases}}
+    <li class="nav-item text-nowrap">
+      
+          {{this}} 
+        </li>
+        {{/each}} --}}
