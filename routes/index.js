@@ -48,7 +48,7 @@ router.post('/users/home', async (req, res) => {
     email: email,
     password: password,
   })
-  console.log(user.password);
+  console.log(user);
   if (user == null) {
     res.redirect('/login')
   } else {
@@ -56,14 +56,13 @@ router.post('/users/home', async (req, res) => {
       req.session.user = user;
       res.redirect('/super')
     } else {
-      //Создание переменной для использования во всем проекте(локальная переменная).Эти данные используются в сессии и для log out
       req.session.user = user;
       res.redirect('/users')
     }
   }
 });
 
-//(await bcrypt.compare(password, user.password))
+// (await bcrypt.compare(password, user.password))
 router.post('/register', async (req, res) => {
   let {
     promocode
@@ -107,3 +106,16 @@ router.post('/register/create', async (req, res) => {
 module.exports = router
 
 
+// try {
+//   const { username, email, password } = req.body;
+//   const user = new User({
+//     username,
+//     email,
+//     password: await bcrypt.hash(password, saltRounds)
+//   });
+//   await user.save();
+//   req.session.user = user;
+//   res.redirect("/dashboard");
+// } catch (error) {
+//   next(error);
+// }
