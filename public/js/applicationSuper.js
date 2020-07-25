@@ -1,9 +1,12 @@
+
+
 const buttonMounth = document.querySelector('#btn-mounth'),
   buttonWeek = document.querySelector('#btn-week'),
   buttonThreDays = document.querySelector('#btn-three-day'),
   customer = document.querySelector('#customers'),
   body = document.querySelector('body'),
   btnDownoloadListUsers = document.querySelector('#downoload-list');
+
 console.log(btnDownoloadListUsers);
 
 async function generateDashBoard(data) {
@@ -65,9 +68,16 @@ customer.addEventListener('click', async (e) => {
   e.preventDefault();
 
   const responce = await fetch('super/customers');
+ 
   let res = await responce.text();
   //  res = Handlebars.compile(res)
   body.innerHTML = res;
   // console.log(res)
   // body.append(res)
+});
+
+btnDownoloadListUsers.addEventListener('click', async (e) => {
+// e.preventDefault()
+const responce = await fetch('super/downoload-list');
+
 });
