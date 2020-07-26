@@ -1,5 +1,5 @@
 <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
-<h1 class="text-center" style="font-family: 'Noto Sans TC', sans-serif; color:blueviolet; margin-top: 10%;">Интересные Статьи</h1>
+<h1 class="text-center" style="font-family: 'Noto Sans TC', sans-serif; color:rgb(156, 228, 24); margin-top: 10%;">Интересные Статьи</h1>
 
 <div class="conteiner">
   <div class="row">
@@ -14,8 +14,6 @@
         {{#each this}}
         {{#if title}}
         <h5 class="card-title" style="font-family: 'Acme', sans-serif;">{{title}}</h5>
-
-        <h5 class="card-author">{{author}}</h5>
         <p class="card-text">{{text}}</p>
 
         <a href="/users/note/{{_id}}/edit" `` class="btn btn-primary bg-success">Edit</a>
@@ -29,3 +27,4 @@
     {{/each}}
   </div>
 </div>
+

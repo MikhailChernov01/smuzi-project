@@ -5,18 +5,20 @@ const { checkSession, checkVerification, cookiesCleaner } = require('../middlewa
 const Note = require('../models/note');
 const User = require('../models/users');
 
-router.get('/', (req, res) => {
+router.get('/', checkSession, (req, res) => {
   res.redirect('/users/home');
 });
 
 router
   .route('/home')
-  .get(checkSession, (req, res) => {
+  .get(checkSession, async (req, res) => {
     const { user } = req.session;
+    // const userInHbs = await User.findOne({_id: user._id})
+    // console.log(userInHbs);
     if (req.session.user) {
-      res.render('home');
+      res.render('home', { user });
     } else {
-      // res.redirect('/login');
+      res.redirect('/login');
     }
   });
 
@@ -38,14 +40,14 @@ router
 
 router
   .route('/note')
-  .get(async (req, res) => {
+  .get(checkSession, async (req, res) => {
     const notes = await Note.find({}).limit(15);
     res.render('note', { notes });
   });
 
 router
   .route('/note/new')
-  .get((req, res) => {
+  .get(checkSession, (req, res) => {
     res.render('createnote');
   });
 
@@ -53,34 +55,52 @@ router
   .route('/bottle')
   .post(checkSession, async (req, res) => {
     const { user } = req.session;
-    const goods = req.body;
-    await User.updateOne({ _id: user._id }, { $push: { purchases: goods.inputNewCode } });
-    res.redirect('/users/home');
+    const { inputNewCode } = await req.body;
+    const newUser = await User.findOneAndUpdate({ _id: user._id }, { $push: { purchases: inputNewCode } });
+    res.json({ newUser })
+    // res.redirect('/users/home');
   });
 
 router
   .route('/note/:id')
-  .get(async (req, res) => {
-    let note = await Note.findById(req.params.id)
-    // console.log(autor);
-    let test = req.session.user._id
-    console.log(test);
-    let newNote = await Note.findByIdAndUpdate({_id:req.params.id},{author: test}, {new: true});
-    // console.log(test);
-    // note.title = test;
-    // console.log(note);
+  .get(checkSession, async (req, res) => {
+    const { user } = req.session
+    //add author
+    // let newNote = await Note.findByIdAndUpdate({ _id: req.params.id }, { author: req.session.user._id }, { new: true });
+    let note = await Note.findById({ _id: req.params.id });
+    try {
+      if ((String(note.author) === String(user._id))) {
+        await Note.findOneAndDelete({ _id: req.params.id })
+        res.redirect('/users/note')
+      }
+    } catch (error) {
+      next(error)
+    }
+  })
+  .put(checkSession, async (req, res, next) => {
+    const { user } = req.session;
+    const note = await Note.findById(req.params.id);
 
-    // req.session.user._id
-    // try {
-    //   if((!note.author===undefined)&&(String(note.author)===String(user._id))) {
+    note.title = req.body.title;
+    note.text = req.body.text;
+    await note.save();
 
-    //     console.log(user._id);
-    //     console.log(note);
-    //   }
-    // } catch (error) {
-    //   next(error)
-    // }
+    res.redirect(`/note`);
+  })
 
+router
+  .route('/note/:id/edit')
+  .get(checkSession, async (req, res) => {
+    const note = await Note.findById(req.params.id);
+    const { user } = req.session;
+    // let newNote = await Note.findByIdAndUpdate({ _id: req.params.id }, { author: user._id }, { new: true });
+    try {
+      if ((String(note.author) === String(user._id))) {
+        res.render('edit', { note });
+      }
+    } catch (error) {
+      next(error)
+    }
   });
 
 

@@ -1,38 +1,44 @@
-<h1 class="text-center" style="font-family: 'Noto Sans TC', sans-serif; color:blueviolet;text-transform:capitalize">Have a nice day, {{user.username}}
+<h1 class="text-center" style="font-family: 'Noto Sans TC', sans-serif; color:rgb(156, 228, 24);text-transform:capitalize">Have
+  a nice day, {{user.username}}
 </h1><br><br><br><br><br><br><br><br>
 <div class="conteiner row">
- <div class="col-6 col-md-4"></div>
- <div class="col-6 col-md-4">
-   <form class="form-inline" action="/users/bottle" method="POST">
-  <div class="form-group mb-2">
-    <label>Код</label>
+  <div class="col-6 col-md-4"></div>
+  <div class="col-6 col-md-4">
+    <form class="form-inline" action="/users/bottle" method="POST" id="bottle">
+      <div class="form-group mb-2">
+        <label>Код</label>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" name="inputNewCode" placeholder="Код с бутылки">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2">Сообщить</button>
+    </form>
   </div>
-  <div class="form-group mx-sm-3 mb-2">
-    <input type="text" class="form-control" name="inputNewCode" placeholder="Код с бутылки">
+  {{#if newUser}}
+  <div class="col-6 col-md-4 text-center">Mои покупки: {{newUser.purchases}}
+    {{else}}
+  <div class="col-6 col-md-4 text-center">Mои покупки: {{user.purchases}}
+    {{/if}}
+    <br>
+    <br>
+    <br>
+    Мои Друзья:
   </div>
-  <button type="submit" class="btn btn-primary mb-2">Сообщить</button>
-</form></div>
- <div class="col-6 col-md-4 text-center">Mои покупки:
-   <br>
-   <br>
-   <br>
-Мои Друзья:
- </div>
-<div class="progress col-6 col-md-4" style="height: 300px; margin-left: 5%; margin-top:5%; padding:0;">
-  <div id="line" class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 0%;"  aria-valuemax="100"></div>
+  <div class="progress col-6 col-md-4" style="height: 300px; margin-left: 5%; margin-top:5%; padding:0;">
+    <div id="line" class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 0%;"
+      aria-valuemax="100"></div>
+  </div>
+  <div class="col-6 col-md-4" style="margin-left: 10%; margin-top:5%">Смузи стал продаваться ещё в 30-х годах ХХ века в
+    Калифорнии, но стал очень популярным в США только в конце 1960-х годов, когда магазины здорового питания начали
+    продавать их. В 1990-х и 2000-х годах смузи появились и в обычных кафе, ресторанах и кофейнях, а также в бутылках в
+    супермаркетах по всему миру.
+    В начале 1970-х годов в компании Smoothie King начались продажи смешанных фруктовых напитков под названием «Смузи».
+    Тем не менее, один из основателей фирмы Стефан Кунау признает, что они не изобретали слово «Смузи», он утверждает,
+    что термин появился в конце 1960-х годов в культуре хиппи и относился к фруктовым напиткам. В 1980 году рост
+    популярности спорта и здорового образа жизни привёл к дополнительному развитию индустрии продуктов здорового
+    питания. За это время открылись первые специализированные бары соков и коктейлей, неотъемлемой частью меню которых
+    были смузи.
+    Также существует версия, что смузи был «изобретён» тихоокеанскими сёрферами.</div>
 </div>
- <div class="col-6 col-md-4" style="margin-left: 10%; margin-top:5%">Смузи стал продаваться ещё в 30-х годах ХХ века в Калифорнии, но стал очень популярным в США только в конце 1960-х годов, когда магазины здорового питания начали продавать их. В 1990-х и 2000-х годах смузи появились и в обычных кафе, ресторанах и кофейнях, а также в бутылках в супермаркетах по всему миру.
-В начале 1970-х годов в компании Smoothie King начались продажи смешанных фруктовых напитков под названием «Смузи». Тем не менее, один из основателей фирмы Стефан Кунау признает, что они не изобретали слово «Смузи», он утверждает, что термин появился в конце 1960-х годов в культуре хиппи и относился к фруктовым напиткам. В 1980 году рост популярности спорта и здорового образа жизни привёл к дополнительному развитию индустрии продуктов здорового питания. За это время открылись первые специализированные бары соков и коктейлей, неотъемлемой частью меню которых были смузи.
-Также существует версия, что смузи был «изобретён» тихоокеанскими сёрферами.</div>
-</div>
 
 
-<script>
-  const processA = document.querySelector('#line');
-  let processNum = 0
-
-  setInterval(() => {
-    processNum++;
-    processA.style.width = `${processNum}%`
-  }, 1000);
-</script>
