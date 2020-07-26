@@ -1,31 +1,34 @@
-
-
-const buttonMounth = document.querySelector('#btn-mounth'),
-  buttonWeek = document.querySelector('#btn-week'),
-  buttonThreDays = document.querySelector('#btn-three-day'),
-  customer = document.querySelector('#customers'),
-  body = document.querySelector('body'),
-  btnDownoloadListUsers = document.querySelector('#downoload-list');
-
-console.log(btnDownoloadListUsers);
+const buttonMounth = document.querySelector('#btn-mounth');
+const buttonWeek = document.querySelector('#btn-week');
+const buttonThreDays = document.querySelector('#btn-three-day');
+const customer = document.querySelector('#customers');
+const body = document.querySelector('body');
+const btnDownoloadListUsers = document.querySelector('#downoload-list');
 
 async function generateDashBoard(data) {
+  const allSumTd = document.querySelector('#sum');
+  const allPurchasesTd = document.querySelector('#all-purchases');
   const responce = await fetch(`super/${data}`);
   const result = await responce.json();
-  let prettyArrData = result.sortData.map((el) =>
-    el
-      .toString()
-      .match(/[A-z]{3}\s(\d{2})\s(\d{4})/gim)
-      .join()
-  );
-  let ctx = document.getElementById('myChart');
-  let myChart = new Chart(ctx, {
+
+  const { arrSum, sortData, allSum, countSum } = result.obj;
+
+  allSumTd.innerHTML = allSum;
+  allPurchasesTd.innerHTML = countSum;
+
+  const prettyArrData = sortData.map((el) => el
+    .toString()
+    .match(/[A-z]{3}\s(\d{2})\s(\d{4})/gim)
+    .join());
+
+  const ctx = document.getElementById('myChart');
+  const myChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: prettyArrData,
       datasets: [
         {
-          data: result.arrSum,
+          data: arrSum,
           lineTension: 0,
           backgroundColor: 'transparent',
           borderColor: '#007bff',
@@ -68,8 +71,8 @@ customer.addEventListener('click', async (e) => {
   e.preventDefault();
 
   const responce = await fetch('super/customers');
- 
-  let res = await responce.text();
+
+  const res = await responce.text();
   //  res = Handlebars.compile(res)
   body.innerHTML = res;
   // console.log(res)
@@ -77,7 +80,6 @@ customer.addEventListener('click', async (e) => {
 });
 
 btnDownoloadListUsers.addEventListener('click', async (e) => {
-// e.preventDefault()
-const responce = await fetch('super/downoload-list');
-
+  e.preventDefault();
+  await fetch('super/downoload-list');
 });
