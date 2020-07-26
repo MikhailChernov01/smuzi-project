@@ -3,7 +3,6 @@ const router = require('express').Router();
 const { checkSession, checkVerification, cookiesCleaner } = require('../middleware/check');
 const Note = require('../models/note');
 
-
 router.get('/', (req, res) => {
   res.redirect('/users/home');
 });
