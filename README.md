@@ -1,6 +1,6 @@
 # Smoothies-project
 
-<h2> Target </h2>
+# Target
 
 1. Creating a smoothie-themed Web App.
 
