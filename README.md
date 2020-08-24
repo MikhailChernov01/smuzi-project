@@ -4,13 +4,18 @@
 
 1. Creating a smoothie-themed Web App.
 
-<h2> Thx </h2>
+# Stack
 
 1. ExpressJS
 2. MongoDB Atlas
-3. https://fonts.google.com/
+3. Google Fonts
 4. Vanilla JS (fetch, DOM)
-5. https://getbootstrap.com/
+5. Bootstrap
 
+# Quick start
+On command line, type in the following commands:
 
+        npm install        
+        npm start        
+ 
 
